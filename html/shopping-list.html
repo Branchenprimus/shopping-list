@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,107 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body>
-    <h1>Simon wars</h1>
+
+<!-- <textarea id="textarea"></textarea> -->
+
+<button type="button" onclick="POST()">Post</button>
+<p>id:</p>
+<div id="_id"></div>
+<p>userId:</p>
+<div id="userId"></div>
+<p>name:</p>
+<div id="name"></div>
+<p>items:</p>
+<div id="getitems"></div>
+
+<script>
+    function POST() {
+        /*  var data = document.getElementById("myTextarea").value; */
+
+        var data = JSON.stringify({
+            "name": "Harampiza"
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                console.log(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items");
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.send(data);
+    }
+
+
+    var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var einkaufsliste = JSON.parse(this.responseText)
+            document.getElementById("_id").innerHTML = einkaufsliste._id;
+        }
+    });
+
+    xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
+    xhr.send(data);
+
+    var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var einkaufsliste = JSON.parse(this.responseText)
+            document.getElementById("userId").innerHTML = einkaufsliste.userId;
+        }
+    });
+
+    xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
+    xhr.send(data);
+
+    var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var einkaufsliste = JSON.parse(this.responseText)
+            document.getElementById("name").innerHTML = einkaufsliste.name;
+        }
+    });
+
+    xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
+    xhr.send(data);
+
+    var getitems = function (i) {
+        var data = null;
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                var einkaufsliste = JSON.parse(this.responseText)
+                document.getElementById("items").innerHTML = einkaufsliste.items[1].name;
+            }
+        });
+
+        xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
+        xhr.send(data);
+    }
+    for (var i = 0; i < einkaufsliste.items.lenght; i++) {
+        getitems(i)
+    }
+
+</script>
 </body>
+
 </html>
