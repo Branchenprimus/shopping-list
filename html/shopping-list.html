@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Eigenes CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Eigener JS-->
-    <script src="script.js"></script>
+    <script src="../js/script.js"></script>
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
@@ -100,9 +100,12 @@
         <div id="content">
             <!--Navbar Header-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
                 <button type="button" id="sidebarCollapse" class="btn btn-info">
                     <i class="fas fa-bars"></i>
                 </button>
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary" type="button" onclick="POST()">Hinzufügen</button>
@@ -110,12 +113,20 @@
                     <input type="text" id="textarea" class="form-control" placeholder="Items" aria-label=""
                         aria-describedby="basic-addon1">
                 </div>
+
             </nav>
+
             <!--List-Items-->
             <ul class="list-group list-group-flush" id="items"></ul>
+
             <div class="line"></div>
+
+
         </div>
     </div>
+
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
