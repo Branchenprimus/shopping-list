@@ -24,8 +24,10 @@ function POST() {
 
     xhr.send(null);
 }
-GetListHeader();
-GetItems();
+document.getElementById("XX").id = "new ID"
+
+// GetListHeader();
+// GetItems();
 
 /*  GET Einkaufslisten Items */
 function GetItems() {
@@ -35,12 +37,13 @@ function GetItems() {
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
             var einkaufsliste = JSON.parse(this.responseText)
-            text = ""
+            text = "<li>"
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
-                text += '<ul>' + einkaufsliste.items[i].name + ("<button>X</button>" + '</ul>') ;
+                text += '<ul>' + einkaufsliste.items[i].name + "<button>X</button>" + '</ul>' ;
+                // document.getElementsByTagName("button").id = i;
             }
         }
-        text += ""
+        text += "</li>"
         document.getElementById('items').innerHTML = text;
     });
     xhr.open("GET",

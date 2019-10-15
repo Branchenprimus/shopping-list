@@ -4,6 +4,7 @@ body{
 
 #items{
     width: 200px;
+    list-style: none;
 }
 
 #items button{
