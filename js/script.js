@@ -10,7 +10,6 @@ function POST() {
 
     xhr.open("POST", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items");
     xhr.setRequestHeader("content-type", "application/json");
-    xhr.send(data);
 
     xhr.onload = function () {
         if (xhr.readyState === xhr.DONE) {
@@ -21,7 +20,6 @@ function POST() {
             }
         }
     };
-
     xhr.send(data);
 }
 GetListHeader();
@@ -37,13 +35,14 @@ function GetItems() {
             var einkaufsliste = JSON.parse(this.responseText)
             text = ""
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
-                text += '<li class="list-group-item">' + einkaufsliste.items[i].name + '<button class="btn btn-outline-secondary" id="btn_items"></button></li>';
+                text += '<li class="list-group-item">' + einkaufsliste.items[i].name + '<button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"></button></li>';
+                document.getElementsByTagName("button").id = "newid";
             }
             console.log(Object.keys(einkaufsliste.items).length);
         }
         text += ''
         document.getElementById('items').innerHTML = text;
-        document.getElementById('quantity').innerHTML= Object.keys(einkaufsliste.items).length + 1;
+        document.getElementById('quantity').innerHTML = Object.keys(einkaufsliste.items).length + 1;
     });
     xhr.open("GET",
         "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
@@ -64,19 +63,65 @@ function GetListHeader() {
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
             var listHeader = JSON.parse(this.responseText)
-          
-            
+
+
             document.getElementById("listname").innerHTML = listHeader.name
         }
     });
-    
+
     xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d");
     xhr.setRequestHeader("content-type", "application/json");
-    
+
     xhr.send(data);
-    
-}
-
-function deleteItem(){
 
 }
+
+//delete Item
+
+function deleteItem(clicked_id) {
+    var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items/";
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", url + clicked_id, true);
+    xhr.onload = function () {
+        if (xhr.readyState === xhr.DONE) {
+            if (xhr.status === 200) {
+                GetItems(); //Funktionsaufruf für die Itemliste
+            }
+        }
+    };
+    xhr.send(null);
+}
+
+// Items Löschen
+// function deleteItem(clicked_id) {
+//     var data = JSON.stringify(false);
+
+
+
+//     var xhr = new XMLHttpRequest();
+//     xhr.withCredentials = true;
+
+//     xhr.addEventListener("readystatechange", function () {
+//         if (this.readyState === this.DONE) {
+//             console.log(this.responseText);
+//         }
+//     });
+
+//     xhr.open("DELETE", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items/5d9e2f5b3197880017e92185");
+//     xhr.setRequestHeader("content-type", "application/json");
+
+
+
+//     // xhr.onload = function () {
+//     //     if (xhr.readyState === xhr.DONE) {
+//     //         if (xhr.status === 200) {
+//     //             console.log(xhr.response);
+//     //             GetItems(); //Funktionsaufruf für die Itemliste
+
+//     //         }
+//     //     }
+//     // };
+//     xhr.send(data);
+//     console.log(xhr.status)
+
+// }
