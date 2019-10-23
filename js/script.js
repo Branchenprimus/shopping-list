@@ -1,11 +1,21 @@
-var selectedListUrl = [];
+GetListHeader();
+GetItems();
 
-/* POST Item von Textbox */
 
+/* Mit Enter bestätigen */
+addEventListener("keydown", function (e) {
+    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+        POST();
+    }
+});
+
+
+/*XMLHTTPRequest*/
 function POST() {
     var data = JSON.stringify({
         "name": document.getElementById("textarea").value
     });
+    textarea.value = '';
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items");
@@ -22,8 +32,9 @@ function POST() {
     };
     xhr.send(data);
 }
-GetListHeader();
-GetItems();
+
+
+
 
 /*  GET Einkaufslisten Items */
 function GetItems() {
@@ -35,7 +46,8 @@ function GetItems() {
             var einkaufsliste = JSON.parse(this.responseText)
             text = ""
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
-                text += '<li class="list-group-item">' + einkaufsliste.items[i].name + '<button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"></button></li>';
+                // text += '<li class="list-group-item">' + einkaufsliste.items[i].name + '<button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"></button></li>';
+                text += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="btn_bought"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
                 document.getElementsByTagName("button").id = "newid";
             }
             console.log(Object.keys(einkaufsliste.items).length);

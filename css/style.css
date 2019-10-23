@@ -149,6 +149,14 @@ ul.neue_liste_hinzufügen a {
     min-height: 100vh;
     transition: all 0.3s;
 }
+#btn_items {
+    float: right;
+  
+}
+#btn_delite{
+    margin-left: 4px;
+   
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
