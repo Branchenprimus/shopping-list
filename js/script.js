@@ -1,11 +1,20 @@
 var selectedListUrl = [];
+GetListHeader();
+GetItems();
 
-/* POST Item von Textbox */
+/* ---------------------------------------------------
+    POST Item von Textbox
+----------------------------------------------------- */
 
+/* Mit Enter bestätigen */
+
+
+/*XMLHTTPRequest*/
 function POST() {
     var data = JSON.stringify({
         "name": document.getElementById("textarea").value
     });
+    textarea.value = '';
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6/items");
@@ -21,11 +30,10 @@ function POST() {
             }
         }
     };
-
+    
     xhr.send(data);
 }
-GetListHeader();
-GetItems();
+
 
 /*  GET Einkaufslisten Items */
 function GetItems() {
@@ -37,13 +45,13 @@ function GetItems() {
             var einkaufsliste = JSON.parse(this.responseText)
             text = ""
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
-                text += '<li class="list-group-item">' + einkaufsliste.items[i].name + '<button class="btn btn-outline-secondary" id="btn_items"></button></li>';
+                text += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="btn_bought"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="btn_delite"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
             }
             console.log(Object.keys(einkaufsliste.items).length);
         }
         text += ''
         document.getElementById('items').innerHTML = text;
-        document.getElementById('quantity').innerHTML= Object.keys(einkaufsliste.items).length + 1;
+        document.getElementById('quantity').innerHTML = Object.keys(einkaufsliste.items).length + 1;
     });
     xhr.open("GET",
         "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d&=");
@@ -64,19 +72,19 @@ function GetListHeader() {
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
             var listHeader = JSON.parse(this.responseText)
-          
-            
+
+
             document.getElementById("listname").innerHTML = listHeader.name
         }
     });
-    
+
     xhr.open("GET", "https://shopping-lists-api.herokuapp.com/api/v1/lists/5d931300ac8b120017a74aa6?ddd=d");
     xhr.setRequestHeader("content-type", "application/json");
-    
+
     xhr.send(data);
-    
+
 }
 
-function deleteItem(){
+function deleteItem() {
 
 }
