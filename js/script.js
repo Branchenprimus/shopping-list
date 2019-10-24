@@ -106,7 +106,6 @@ function deleteItem(clicked_id) {
     xhr.send(null);
 }
 
-
 // Items Löschen
 // function deleteItem(clicked_id) {
 //     var data = JSON.stringify(false);
