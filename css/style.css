@@ -157,14 +157,40 @@ ul.neue_liste_hinzufügen a {
     margin-left: 4px;
    
 }
+#item_hinzufügen_plus_btn{
+    display: none;
+}
 
+
+/* Print */
+#print_btn_div{
+    bottom: 0;
+    right: 0;
+  
+    position: relative;
+    
+
+}
+#print_btn{
+    float: right;
+    border: none;
+  
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
+
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
+    }
+    #item_hinzufügen_btn{
+        display: none;
+
+    }
+    #item_hinzufügen_plus_btn:not(:target){
+       display: inline;
     }
     .modal-body {
         position: relative;
@@ -180,5 +206,45 @@ ul.neue_liste_hinzufügen a {
   
 }
 
+@media print{
+    #sidebar{
+        display: none;
+    }
+    #btn_items
+    {
+        display: none;
+    }
+    
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 100% ;
+        margin: 0 ;
+        padding: 0 ;
+        font-size: 16px;
+    } 
+    
+    #list_items_bought_false:before{
+        content: "Freitag Abend";
+        font-weight: bold;
+        font-size: 1.75rem;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: .5rem;
+        }
+    #listname{
+        display: block;
+        text-align: center;
+    }
+     #content:after {
+        content: "\ Liste erstellt durch Shopping-List by Jan Wardenga & Felix Flassak";
+        color: #dedede;
+        font-size: 0.85em;
+        border-top: 1px solid #dedede;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+    }
 
-
+    #items_bought:after{
+        content: "penis";
+    }
+}

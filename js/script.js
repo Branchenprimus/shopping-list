@@ -105,6 +105,9 @@ function deleteItem(clicked_id) {
     };
     xhr.send(null);
 }
+function drucken() {
+    window.print();
+}
 
 // Items Löschen
 // function deleteItem(clicked_id) {
