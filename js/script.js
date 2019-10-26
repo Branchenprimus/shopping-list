@@ -109,6 +109,9 @@ function deleteItem(clicked_id) {
     };
     xhr.send(null);
 }
+function drucken() {
+    window.print();
+}
 
 /* ---------------------------------------------------
     UPDATE ITEM
