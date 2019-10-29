@@ -25,15 +25,7 @@ function POST() {
     xhr.open("POST", url + listid + "/items");
     xhr.setRequestHeader("content-type", "application/json");
 
-    xhr.onload = function () {
-        if (xhr.readyState === xhr.DONE) {
-            if (xhr.status === 200) {
-                console.log(xhr.response);
-                GetItems(); //Funktionsaufruf für die Itemliste
-
-            }
-        }
-    };
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Posten"
     xhr.send(data);
 }
 
@@ -50,15 +42,24 @@ function GetItems() {
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
             var einkaufsliste = JSON.parse(this.responseText)
-            text = ""
+            listUnbought = ""       //Liste für Items mit dem Status "bought = false"
+            listBought = ""         //Liste für Items mit dem Status "bought = true"
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
-                text += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
-                document.getElementsByTagName("button").id = "newid";
+                if (einkaufsliste.items[i].bought === false) {
+                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)">  </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)">  </button> </span></span> </li>';
+                    // document.getElementsByTagName("button").id = "newid";
+                }
+                else {
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name +  '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+
+                }
+
             }
-            console.log(Object.keys(einkaufsliste.items).length);
         }
-        text += ''
-        document.getElementById('items').innerHTML = text;
+        console.log(listUnbought)
+        document.getElementById('itemsUnbought').innerHTML = listUnbought;
+        document.getElementById('itemsBought').innerHTML = listBought;
+
         document.getElementById('quantity').innerHTML = Object.keys(einkaufsliste.items).length;
     });
     xhr.open("GET", url + listid);
@@ -100,13 +101,7 @@ function deleteItem(clicked_id) {
 
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", url + listid + "/items/" + clicked_id);
-    xhr.onload = function () {
-        if (xhr.readyState === xhr.DONE) {
-            if (xhr.status === 200) {
-                GetItems(); //Funktionsaufruf für die Itemliste
-            }
-        }
-    };
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Löschen"
     xhr.send(null);
 }
 function drucken() {
@@ -119,17 +114,36 @@ function drucken() {
 
 function update(clicked_id) {
 
-    var data = null;
+    var data = JSON.stringify({
+        "bought": true
+    });
+
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
+
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
-            var einkaufsliste = JSON.parse(this.responseText)
-            // einkaufsliste.items[0].bought = true
+            console.log(this.responseText);
         }
     });
 
-
     xhr.open("PUT", url + listid + "/items/" + clicked_id);
+    xhr.setRequestHeader("content-type", "application/json");
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Update"
+
     xhr.send(data);
+}
+
+/* ---------------------------------------------------
+    VERMEIDUNG VON REDUNDANZ //siehe Post, Delete, Update, etc.
+----------------------------------------------------- */
+
+function refreshPage(xhrÜbergeben) {
+    xhrÜbergeben.onload = function () {
+        if (xhrÜbergeben.readyState === xhrÜbergeben.DONE) {
+            if (xhrÜbergeben.status === 200) {
+                GetItems(); //Funktionsaufruf für die Itemliste
+            }
+        }
+    };
 }
