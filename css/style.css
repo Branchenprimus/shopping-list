@@ -156,9 +156,9 @@ ul.neue_liste_hinzufügen a {
 #print_btn_div{
     bottom: 0;
     right: 0;
-  
     position: relative;
 }    
+#change_apikey_btn,
 #share,
 #print_btn,
 #behindert {
@@ -199,13 +199,6 @@ ul.neue_liste_hinzufügen a {
     box-shadow: none;
     outline: none;
     border: none;
-}
-
-
-#print_btn{
-    float: right;
-    border: none;
-  
 }
 
 /* ---------------------------------------------------
@@ -307,3 +300,4 @@ ul.neue_liste_hinzufügen a {
 
 
 }
+

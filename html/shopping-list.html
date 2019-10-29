@@ -98,7 +98,36 @@
                 </div>
             </div>
         </div>
-
+         <!--Bootstraps Modal API Key wechseln-->
+        <!-- Modal -->
+        <div class="modal fade" id="change_apikey_modal" tabindex="-1" role="dialog" aria-labelledby="Neuen API-Key hinzufügen:" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Neuen API-Key hinzufügen</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
+                      <input readonly type="text" class="form-control" id="alter_api_key_input" placeholder="XXXX-XXXX-XXXX-XXXX">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Neuer API-Key:</label>
+                      <input type="text" class="form-control" id="neuer_api_key_input">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                  <button type="button" class="btn btn-primary" onclick="changeapikey()">Speichern</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <!-- Content  -->
         <div id="content">
             <!--Navbar Header-->
@@ -142,6 +171,8 @@
                 <button class="btn btn-outline-secondary" id="share" onclick="shareapi()">
                     <i class="fas fa-share-alt"></i>
                 </button>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn" onclick="showoldapikey()"
+                data-target="#change_apikey_modal"><i class="fas fa-user-cog"></i></button>
             </div>
 
         </div>

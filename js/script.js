@@ -1,6 +1,20 @@
 var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
 var listid = "5d931300ac8b120017a74aa6"
+var apikey = "35fb74ae2734069fc8f7bc15d729c250";
 
+
+function showoldapikey() {
+    document.getElementById("alter_api_key_input").placeholder = apikey;  
+}
+function changeapikey(){
+    if(document.getElementById("neuer_api_key_input").value == ""){
+        document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
+    } else {
+    apikey = document.getElementById("neuer_api_key_input").value;
+    document.getElementById("alter_api_key_input").placeholder = apikey;
+    console.log(apikey)
+}
+}
 
 GetListHeader();
 GetItems();
@@ -52,7 +66,7 @@ function GetItems() {
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
-                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name +  '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
 
                 }
 
@@ -190,7 +204,7 @@ recognition.onresult = function () {
     var current = event.resultIndex;
     var transcript = event.results[current][0].transcript;
     console.log("onresult")
-    console.log( transcript);
+    console.log(transcript);
     document.getElementById("textarea").value = transcript;
 };
 
@@ -289,5 +303,5 @@ function shareapi() {
         title: document.title,
         text: 'Hier eine Liste für dich!',
         url: 'url + listid',
-      })
+    })
 }
