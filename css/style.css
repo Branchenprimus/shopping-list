@@ -145,16 +145,21 @@ ul.neue_liste_hinzufügen a {
     margin-left: 4px;
 
 }
+#item_hinzufügen_plus_btn{
+    display: none;
+}
 
 
 /* Print */
-#print_btn_div {
+#print_btn_div{
     bottom: 0;
     right: 0;
+  
     position: relative;
+}    
 
 
-}
+
 
 #print_btn,
 #behindert {
@@ -198,6 +203,12 @@ ul.neue_liste_hinzufügen a {
 }
 
 
+
+#print_btn{
+    float: right;
+    border: none;
+  
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
