@@ -1,6 +1,5 @@
-
-
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -22,20 +21,7 @@ a:focus {
     transition: all 0.4s;
 }
 
-.navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: px;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
 
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
 
 .line {
     width: 100%;
@@ -44,12 +30,7 @@ a:focus {
     margin: 40px 0;
 }
 
-#sidebarCollapse{
-    margin-right: 5px ;
-    display: inline-block;
-    
-  
-}
+
 
 
 
@@ -69,10 +50,13 @@ a:focus {
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
+    z-index: 1;
+    box-shadow: 0 -8px 20px 2px black;
 }
 
 #sidebar.active {
     margin-left: -250px;
+
 }
 
 
@@ -85,7 +69,7 @@ a:focus {
 #sidebar ul.listen {
     padding: 20px 0;
     bottom: 0;
-    
+
 }
 
 #sidebar ul p {
@@ -93,7 +77,7 @@ a:focus {
     padding-left: 10px;
     margin-bottom: 0;
     padding-bottom: 10px;
-   
+
 }
 
 #sidebar ul li a {
@@ -114,29 +98,30 @@ ul.neue_liste_hinzufügen {
     margin: 0%;
     position: fixed;
     bottom: 0%;
-    
+
 }
 
 ul.neue_liste_hinzufügen a {
     text-align: center;
-    font-size: 0.9em !important;
+    font-size: 0.9em;
     display: block;
     border-radius: 5px;
-   
-}
-#neue_liste_hinzufügen_btn
-{
-    background: #6d7fcc !important;
-    color: #fff !important;
-}
-#neue_liste_hinzufügen_btn:hover{
-    color: #6d7fcc !important;
-    background: #fff !important;
+
 }
 
-#plus{
+#neue_liste_hinzufügen_btn {
+    background: #6d7fcc;
+    color: #fff;
+}
+
+#neue_liste_hinzufügen_btn:hover {
+    color: #6d7fcc;
+    background: #fff;
+}
+
+#plus {
     padding-right: 4px;
-   
+
 }
 
 /* ---------------------------------------------------
@@ -148,37 +133,149 @@ ul.neue_liste_hinzufügen a {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+
 }
+
 #btn_items {
     float: right;
-  
+
 }
-#btn_delite{
+
+#btn_delite {
     margin-left: 4px;
-   
+
 }
+
+
+/* Print */
+#print_btn_div {
+    bottom: 0;
+    right: 0;
+    position: relative;
+
+
+}
+
+#print_btn,
+#behindert {
+    float: right;
+    border: none;
+
+}
+
+/*navbar*/
+.spracheingabe {
+    float: right;
+}
+
+#item_hinzufügen_plus_btn {
+    display: none;
+}
+
+#item_hinzufügen_btn,
+#item_hinzufügen_plus_btn {
+    height: 64px;
+}
+
+#sidebarCollapse {
+    margin-right: 5px;
+    display: inline-block;
+    width: 53px;
+    
+}
+
+.navbar {
+    padding: 0px 0px 5px;
+    margin: 0px 0px 0px 5px;
+    background: #fff;
+
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
+
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
     }
+
+    #item_hinzufügen_btn {
+        display: none;
+
+    }
+
+    #item_hinzufügen_plus_btn:not(:target) {
+        display: inline;
+    }
+
     .modal-body {
         position: relative;
-        max-height: 200px; 
+        max-height: 200px;
         overflow-y: auto;
     }
+
     .modal-wide {
         width: 95%;
-          }
+    }
+
     #sidebar.active {
         margin-left: 0;
     }
-  
+
 }
 
+@media print {
+    #sidebar {
+        display: none;
+    }
+
+    #btn_items {
+        display: none;
+    }
+
+    #print_btn_div {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+
+    #list_items_bought_false:before {
+        content: "Freitag Abend";
+        font-weight: bold;
+        font-size: 1.75rem;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: .5rem;
+    }
+
+    #listname {
+        display: block;
+        text-align: center;
+    }
+
+    #content:after {
+        content: "\ Liste erstellt durch Shopping-List by Jan Wardenga & Felix Flassak";
+        color: #dedede;
+        font-size: 0.85em;
+        border-top: 1px solid #dedede;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+    }
 
 
+}

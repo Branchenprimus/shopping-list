@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <meta name="description" content="Shopping is popping">
+    <meta name="autor" content="Jan Wardenga & Felix Flassak">
+    <meta name="kurs" content="WWI2018H">
     <title>Shopping-List</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -13,29 +15,30 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Eigenes CSS -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- jQuery CDN - Slim version (=ohne AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Eigener JS-->
     <script src="../js/script.js"></script>
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
-        </script>
+    </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-        </script>
-    <!-- jQuery CDN - Slim version (=ohne AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-        </script>
+    </script>
 
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
 
 <body>
@@ -100,24 +103,33 @@
         <div id="content">
             <!--Navbar Header-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-bars"></i>
-                </button>
-
                 <div class="input-group mb-3">
+                    <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary" id="item_hinzufügen_btn" type="button" onclick="POST()">Hinzufügen</button>
+                        <span>
+                            <button class="btn btn-outline-secondary" id="item_hinzufügen_plus_btn" type="button"
+                                onclick="POST()"><i class="fas fa-plus-circle"></i></button>
+                            <button class="btn btn-outline-secondary" id="item_hinzufügen_btn" type="button"
+                                onclick="POST()">Hinzufügen</button>
+
+                        </span>
                     </div>
+
                     <input type="text" id="textarea" class="form-control" placeholder="Items" aria-label=""
                         aria-describedby="basic-addon1">
+                    <span class="spracheingabe">
+                        <button class="btn btn-outline-secondary" id="start_button" onclick="startButton(event)">
+                            <img id="start_img" src="../img/mic.gif" alt="Start"></button>
+                    </span>
                 </div>
-
             </nav>
 
-            <!--List-Items-->
-            <ul class="list-group list-group-flush"><span id="items"></ul>
+            <!--#######################################
+            #              Listitems                  #
+            ########################################-->
+            <ul class="list-group list-group-flush" id="list_items_bought_false"><span id="items"></ul>
             <div class="line"></div>
 
             <ul class="list-group list-group-flush">
@@ -134,19 +146,28 @@
                     </span>
                 </li>
                 <li class="list-group-item">Heroin/brüste
-                        <span id="btn_items">
-                            <span id="addbacktolist">
-                                <button class="btn btn-outline-secondary" id="btn_bought">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </span>
-                            <button class="btn btn-outline-secondary" id="btn_delite">
-                                <i class="fas fa-trash-alt"></i>
+                    <span id="btn_items">
+                        <span id="addbacktolist">
+                            <button class="btn btn-outline-secondary" id="btn_bought">
+                                <i class="fas fa-plus"></i>
                             </button>
                         </span>
-                    </li>
+                        <button class="btn btn-outline-secondary" id="btn_delite">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </span>
+                </li>
             </ul>
 
+            <!--Print-->
+            <div class="line" id="print_btn_div">
+                <button class="btn btn-outline-secondary" id="print_btn" onclick="drucken()">
+                    <i class="fas fa-print"></i>
+                </button>
+                <button class="btn btn-outline-secondary" id="behindert" onclick="bistdubehindert()">
+                    <i class="fas fa-wheelchair"></i>
+                </button>
+            </div>
 
         </div>
     </div>
@@ -160,6 +181,8 @@
             });
         });
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>
