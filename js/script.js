@@ -48,7 +48,7 @@ function GetItems() {
             listBought = ""         //Liste für Items mit dem Status "bought = true"
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
                 if (einkaufsliste.items[i].bought === false) {
-                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)">  </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)">  </button> </span></span> </li>';
+                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i></button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i></button> </span></span> </li>';
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
@@ -278,4 +278,16 @@ function readOutLoud(error) {
     speech.rate = 1;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
+}
+
+/*-----------------------------
+     ShareAPI
+------------------------------*/
+//Funktioniert nur über Htpps
+function shareapi() {
+    navigator.share({
+        title: document.title,
+        text: 'Hier eine Liste für dich!',
+        url: 'url + listid',
+      })
 }
