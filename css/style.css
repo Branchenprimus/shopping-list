@@ -27,10 +27,9 @@ a:focus {
     width: 100%;
     height: 1px;
     border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
-
-
 
 
 
@@ -129,6 +128,10 @@ ul.neue_liste_hinzufügen a {
 ----------------------------------------------------- */
 .list-group-item {
     padding: 14px 15px !important;
+}
+
+.list-group-item:hover{
+    background-color: rgba(119, 136, 153, 7%)
 }
 #content {
     width: 100%;
