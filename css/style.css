@@ -151,6 +151,11 @@ ul.neue_liste_hinzufügen a {
     display: none;
 }
 
+/*Modals*/
+.input-group-addon{
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important
+}
 
 /* Print */
 #print_btn_div{

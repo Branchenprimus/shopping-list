@@ -23,12 +23,8 @@
     <!-- Eigener JS-->
     <script src="../js/script.js"></script>
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
-    </script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-    </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
@@ -111,13 +107,17 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
+                    <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
+                    <div class="input-group">
                       <input readonly type="text" class="form-control" id="alter_api_key_input" placeholder="XXXX-XXXX-XXXX-XXXX">
+                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
+                        <i class="far fa-1.5x fa-copy"></i></button>
                     </div>
-                    <div class="form-group">
-                      <label for="message-text" class="col-form-label">Neuer API-Key:</label>
+                    <label for="message-text" class="col-form-label">Neuer API-Key:</label>
+                    <div class="input-group">
                       <input type="text" class="form-control" id="neuer_api_key_input">
+                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
+                            <i class="far fa-1.5x fa-copy"></i></button>
                     </div>
                   </form>
                 </div>
