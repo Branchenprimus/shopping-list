@@ -84,7 +84,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="listen_id" class="col-form-label">Listen ID:</label>
-                                <input type="text" class="form-control" id="recipient-name" placeholder="">
+                                <input type="text" class="form-control" id="listemitIDhinzufügen" placeholder="" >
                             </div>
                         </form>
                     </div>
@@ -110,14 +110,14 @@
                     <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
                     <div class="input-group">
                       <input readonly type="text" class="form-control" id="alter_api_key_input" placeholder="XXXX-XXXX-XXXX-XXXX">
-                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
+                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key" onclick="alter_api_key_input()">
                         <i class="far fa-1.5x fa-copy"></i></button>
                     </div>
                     <label for="message-text" class="col-form-label">Neuer API-Key:</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="neuer_api_key_input">
                       <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
-                            <i class="far fa-1.5x fa-copy"></i></button>
+                            <i class="far fa-1.5x fa-copy" onclick="neuer_api_key_input()"></i></button>
                     </div>
                   </form>
                 </div>
