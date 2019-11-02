@@ -18,7 +18,7 @@
     <!-- jQuery CDN - Slim version (=ohne AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Eigener JS-->
     <script src="../js/script.js"></script>
@@ -28,17 +28,19 @@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-    </script>
+        </script>
 
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
 
 <body>
-    <div class="wrapper">
+
+
+    <div class="listcontent">
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -84,50 +86,53 @@
                         <form>
                             <div class="form-group">
                                 <label for="listen_id" class="col-form-label">Listen ID:</label>
-                                <input type="text" class="form-control" id="listemitIDhinzufügen" placeholder="" >
+                                <input type="text" class="form-control" id="listemitIDhinzufügen" placeholder="">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary">Hinzufügen</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="neue_liste_hinzufügen()">Hinzufügen</button>
                     </div>
                 </div>
             </div>
         </div>
-         <!--Bootstraps Modal API Key wechseln-->
+        <!--Bootstraps Modal API Key wechseln-->
         <!-- Modal -->
-        <div class="modal fade" id="change_apikey_modal" tabindex="-1" role="dialog" aria-labelledby="Neuen API-Key hinzufügen:" aria-hidden="true">
+        <div class="modal fade" id="change_apikey_modal" tabindex="-1" role="dialog"
+            aria-labelledby="Neuen API-Key hinzufügen:" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Neuen API-Key hinzufügen</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
-                    <div class="input-group">
-                      <input readonly type="text" class="form-control" id="alter_api_key_input" placeholder="XXXX-XXXX-XXXX-XXXX">
-                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key" onclick="alter_api_key_input()">
-                        <i class="far fa-1.5x fa-copy"></i></button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Neuen API-Key hinzufügen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <label for="message-text" class="col-form-label">Neuer API-Key:</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="neuer_api_key_input">
-                      <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
-                            <i class="far fa-1.5x fa-copy" onclick="neuer_api_key_input()"></i></button>
+                    <div class="modal-body">
+                        <form>
+                            <label for="recipient-name" class="col-form-label">Aktueller API-Key:</label>
+                            <div class="input-group">
+                                <input readonly type="text" class="form-control" id="alter_api_key_input"
+                                    placeholder="">
+                                <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key"
+                                    onclick="alter_api_key_input()">
+                                    <i class="far fa-1.5x fa-copy"></i></button>
+                            </div>
+                            <label for="message-text" class="col-form-label">Neuer API-Key:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="neuer_api_key_input">
+                                <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
+                                    <i class="far fa-1.5x fa-copy" onclick="neuer_api_key_input()"></i></button>
+                            </div>
+                        </form>
                     </div>
-                  </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-primary" onclick="changeapikey()">Speichern</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                  <button type="button" class="btn btn-primary" onclick="changeapikey()">Speichern</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         <!-- Content  -->
         <div id="content">
             <!--Navbar Header-->
@@ -171,13 +176,14 @@
                 <button class="btn btn-outline-secondary" id="share" onclick="shareapi()">
                     <i class="fas fa-share-alt"></i>
                 </button>
-                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn" onclick="showoldapikey()"
-                data-target="#change_apikey_modal"><i class="fas fa-user-cog"></i></button>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn"
+                    onclick="showoldapikey()" data-target="#change_apikey_modal"><i
+                        class="fas fa-user-cog"></i></button>
             </div>
 
         </div>
-    </div>
 
+    </div>
 
 
     <script type="text/javascript">
