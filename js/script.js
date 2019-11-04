@@ -133,11 +133,11 @@ function GetItems() {
             listBought = ""         //Liste für Items mit dem Status "bought = true"
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
                 if (einkaufsliste.items[i].bought === false) {
-                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i></button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i></button> </span></span> </li>';
+                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update1(this.id)"> <i class="fas fa-shopping-basket"></i></button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i></button> </span></span> </li>';
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
-                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update(this.id)"> <i class="fas fa-check"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name +  '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
 
                 }
 
@@ -196,13 +196,39 @@ function drucken() {
 }
 
 /* ---------------------------------------------------
-    UPDATE ITEM
+    UPDATE ITEM //unbought -> bought
 ----------------------------------------------------- */
 
-function update(clicked_id) {
+function update1(clicked_id) {
 
     var data = JSON.stringify({
         "bought": true
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("PUT", url + listid + "/items/" + clicked_id);
+    xhr.setRequestHeader("content-type", "application/json");
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Update"
+
+    xhr.send(data);
+}
+
+/* ---------------------------------------------------
+    UPDATE ITEM //bought -> unbought
+----------------------------------------------------- */
+
+function update2(clicked_id) {
+
+    var data = JSON.stringify({
+        "bought": false
     });
 
     var xhr = new XMLHttpRequest();
@@ -246,6 +272,7 @@ function drucken() {
 /*-----------------------------
      Spracheingabe
 ------------------------------*/
+
 
 var behindert = false;
 var error = " ";
