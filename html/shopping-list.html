@@ -47,23 +47,23 @@
             <label for="recipient-name" class="col-form-label">Füge eine exestierende Liste mit der ListenID
                 hinzu:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="alter_api_key_input" placeholder="ListID">
+                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID">
                 <button class="input-group-addon btn btn-outline-secondary" title="Copy ListID" onclick="XXXX">
                     <i class="far fa-1.5x fa-copy"></i></button>
             </div>
             <label for="message-text" class="col-form-label">Oder füge alle deine Listen mit deinem API-Key
                 hinzu:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="neuer_api_key_input" placeholder="API-Key">
+                <input type="text" class="form-control" id="nolistidnoapikey_apikey_input" placeholder="API-Key">
                 <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
-                    <i class="far fa-1.5x fa-copy" onclick="neuer_api_key_input()"></i></button>
+                    <i class="far fa-1.5x fa-copy" onclick="XX"></i></button>
             </div>
             <p>Du hast noch keine Listen, oder API-Key? <br>
                 Melde dich <span id="herokuapplink"><a target="_blank"
                         href="https://shopping-lists-api.herokuapp.com/register">hier</a></span> an und komme dann
                 wieder hierhin
                 zurück.</p>
-            <button type="button" class="btn btn-outline-secondary" id="weiter">Weiter</button>
+            <button type="button" class="btn btn-outline-secondary" id="weiter" onclick="nolistidnoapikey_btn()">Weiter</button>
         </div>
     </div>
     <div class="listcontent" id="tets">

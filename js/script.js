@@ -2,7 +2,8 @@ var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
 var listid = undefined //5d931300ac8b120017a74aa6
 var apikey = undefined; //35fb74ae2734069fc8f7bc15d729c250
 var copyText = "";
-var locurl = window.location.href;
+const locurl = window.location.href;
+
 
 
 splitCurrentURL();
@@ -15,12 +16,30 @@ $(document).ready(function () {
         if (listid === undefined) {
             $('.listcontent').hide()
             $('.nolistidnoapikey').show()
-        } 
-    } else{
+        }
+    } else {
         $('.listcontent').show()
         $('.nolistidnoapikey').hide()
     }
 });
+
+
+
+
+function nolistidnoapikey_btn() {
+    if (document.getElementById("nolistidnoapikey_apikey_input").value == "" && document.getElementById("nolistidnoapikey_listid_input").value == "") {
+        alert("Bitte Api-Key oder ListID eingeben")
+    } else {
+        if (document.getElementById("nolistidnoapikey_listid_input").value !== "") {
+            listid = document.getElementById("nolistidnoapikey_listid_input").value
+        }
+        if (document.getElementById("nolistidnoapikey_apikey_input").value !== ""){
+            apikey = document.getElementById("nolistidnoapikey_apikey_input").value
+        }
+        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+    }
+
+}
 
 
 
@@ -48,7 +67,8 @@ function neue_liste_hinzufügen() {
         document.getElementById("listemitIDhinzufügen").placeholder = "Bitte ListenID eingeben";
     } else {
         listid = document.getElementById("listemitIDhinzufügen").value;
-        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+        let hilfsvar = locurl.split("?")[0];
+        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listid);
     }
     splitCurrentURL();
 }
@@ -62,7 +82,8 @@ function changeapikey() {
         document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
     } else {
         apikey = document.getElementById("neuer_api_key_input").value;
-        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+        let hilfsvar = locurl.split("?")[0];
+        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listid);
         document.getElementById("alter_api_key_input").placeholder = apikey;
     }
     splitCurrentURL();
@@ -70,7 +91,6 @@ function changeapikey() {
 
 function splitCurrentURL() {
     let spliturl = locurl.split("?")[1]; // this=true&that=good;
-    console.log(spliturl)
     params = {};
     spliturl = spliturl.split("&"); // ['this=true','that=good']
     for (var i = 0; i < spliturl.length; i++) {
@@ -137,7 +157,7 @@ function GetItems() {
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
-                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name +  '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
 
                 }
 
