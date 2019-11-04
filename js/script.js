@@ -1,6 +1,6 @@
 var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
-var listid = "" //5d931300ac8b120017a74aa6
-var apikey = ""; //35fb74ae2734069fc8f7bc15d729c250
+var listid = undefined //5d931300ac8b120017a74aa6
+var apikey = undefined; //35fb74ae2734069fc8f7bc15d729c250
 var copyText = "";
 var locurl = window.location.href;
 
@@ -8,7 +8,20 @@ var locurl = window.location.href;
 splitCurrentURL();
 GetListHeader();
 GetItems();
-console.log(locurl + "key=" + apikey + "&id=" + listid)
+
+
+$(document).ready(function () {
+    if (apikey === undefined) {
+        if (listid === undefined) {
+            $('.listcontent').hide()
+            $('.nolistidnoapikey').show()
+        } 
+    } else{
+        $('.listcontent').show()
+        $('.nolistidnoapikey').hide()
+    }
+});
+
 
 
 
@@ -30,7 +43,7 @@ function copytoclipboard() {
     alert("Copied the text: " + copyText.value);
 }
 
-function neue_liste_hinzufügen(){
+function neue_liste_hinzufügen() {
     if (document.getElementById("listemitIDhinzufügen").value == "") {
         document.getElementById("listemitIDhinzufügen").placeholder = "Bitte ListenID eingeben";
     } else {
