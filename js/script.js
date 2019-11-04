@@ -1,6 +1,20 @@
 var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
 var listid = "5d931300ac8b120017a74aa6"
+var apikey = "35fb74ae2734069fc8f7bc15d729c250";
 
+
+function showoldapikey() {
+    document.getElementById("alter_api_key_input").placeholder = apikey;  
+}
+function changeapikey(){
+    if(document.getElementById("neuer_api_key_input").value == ""){
+        document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
+    } else {
+    apikey = document.getElementById("neuer_api_key_input").value;
+    document.getElementById("alter_api_key_input").placeholder = apikey;
+    console.log(apikey)
+}
+}
 
 GetListHeader();
 GetItems();
@@ -217,7 +231,7 @@ recognition.onresult = function () {
     var current = event.resultIndex;
     var transcript = event.results[current][0].transcript;
     console.log("onresult")
-    console.log( transcript);
+    console.log(transcript);
     document.getElementById("textarea").value = transcript;
 };
 
@@ -316,5 +330,5 @@ function shareapi() {
         title: document.title,
         text: 'Hier eine Liste für dich!',
         url: 'url + listid',
-      })
+    })
 }
