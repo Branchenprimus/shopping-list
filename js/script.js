@@ -8,7 +8,7 @@ var locurl = window.location.href;
 splitCurrentURL();
 GetListHeader();
 GetItems();
-console.log(locurl + "key=" + apikey + "&id=" + listid)
+GetAllListsOfUser();
 
 
 
@@ -30,7 +30,7 @@ function copytoclipboard() {
     alert("Copied the text: " + copyText.value);
 }
 
-function neue_liste_hinzufügen(){
+function neue_liste_hinzufügen() {
     if (document.getElementById("listemitIDhinzufügen").value == "") {
         document.getElementById("listemitIDhinzufügen").placeholder = "Bitte ListenID eingeben";
     } else {
@@ -74,21 +74,10 @@ function splitCurrentURL() {
 }
 
 
-
-
-
-/* Mit Enter bestätigen */
-addEventListener("keydown", function (e) {
-    if (e.keyCode === 13) { //checks whether the pressed key is "Enter"
-        POST();
-    }
-});
-
 /*-----------------------------
      API Requests
 ------------------------------*/
 
-/*Post*/
 function POST() {
     var data = JSON.stringify({
         "name": document.getElementById("textarea").value
@@ -103,9 +92,33 @@ function POST() {
     xhr.send(data);
 }
 
+/* ---------------------------------------------------
+    GET LIST HEADER //Hier wird der Listenname abgerufen
+----------------------------------------------------- */
 
+function GetListHeader() {
 
+    var data = JSON.stringify(false);
 
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var listHeader = JSON.parse(this.responseText)
+            var listOfLists = ""
+            for (i = 0; i < Object.keys(listHeader).length; i++) {
+                listOfLists += ' <li> '
+                document.getElementById("listname").innerHTML = listHeader.name
+            }
+        }
+    });
+
+    xhr.open("GET", url);
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.send(data);
+
+}
 /* ---------------------------------------------------
     GET ITEM //Hole alle Items aus der aktuellen Liste
 ----------------------------------------------------- */
@@ -124,13 +137,12 @@ function GetItems() {
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
-                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name +  '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
 
                 }
 
             }
         }
-        console.log(listUnbought)
         document.getElementById('itemsUnbought').innerHTML = listUnbought;
         document.getElementById('itemsBought').innerHTML = listBought;
 
@@ -141,31 +153,6 @@ function GetItems() {
 }
 
 
-/* ---------------------------------------------------
-    GET LIST HEADER //Hier wird der Listenname abgerufen. Hier muss noch die funktion, alle Listen anzuzeigen implementiert werden
------------------------------------------------------ */
-
-function GetListHeader() {
-
-    var data = JSON.stringify(false);
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === this.DONE) {
-            var listHeader = JSON.parse(this.responseText)
-
-
-            document.getElementById("listname").innerHTML = listHeader.name
-        }
-    });
-
-    xhr.open("GET", url + listid);
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.send(data);
-
-}
 
 /* ---------------------------------------------------
     DELETE ITEM
