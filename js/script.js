@@ -1,23 +1,81 @@
 var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
-var listid = "5d931300ac8b120017a74aa6"
-var apikey = "35fb74ae2734069fc8f7bc15d729c250";
+var listid = "" //5d931300ac8b120017a74aa6
+var apikey = ""; //35fb74ae2734069fc8f7bc15d729c250
+var copyText = "";
+var locurl = window.location.href;
 
 
-function showoldapikey() {
-    document.getElementById("alter_api_key_input").placeholder = apikey;  
-}
-function changeapikey(){
-    if(document.getElementById("neuer_api_key_input").value == ""){
-        document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
-    } else {
-    apikey = document.getElementById("neuer_api_key_input").value;
-    document.getElementById("alter_api_key_input").placeholder = apikey;
-    console.log(apikey)
-}
-}
-
+splitCurrentURL();
 GetListHeader();
 GetItems();
+console.log(locurl + "key=" + apikey + "&id=" + listid)
+
+
+
+// Copy to Clipboard 
+function alter_api_key_input() {
+    copyText = document.getElementById("alter_api_key_input");
+    copytoclipboard();
+}
+
+function neuer_api_key_input() {
+    copyText = document.getElementById("neuer_api_key_input");
+    copytoclipboard();
+}
+
+function copytoclipboard() {
+    copyText.select();
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+}
+
+function neue_liste_hinzufügen(){
+    if (document.getElementById("listemitIDhinzufügen").value == "") {
+        document.getElementById("listemitIDhinzufügen").placeholder = "Bitte ListenID eingeben";
+    } else {
+        listid = document.getElementById("listemitIDhinzufügen").value;
+        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+    }
+    splitCurrentURL();
+}
+
+// API Key wechseln
+function showoldapikey() {
+    document.getElementById("alter_api_key_input").placeholder = apikey;
+}
+function changeapikey() {
+    if (document.getElementById("neuer_api_key_input").value == "") {
+        document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
+    } else {
+        apikey = document.getElementById("neuer_api_key_input").value;
+        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+        document.getElementById("alter_api_key_input").placeholder = apikey;
+    }
+    splitCurrentURL();
+}
+
+function splitCurrentURL() {
+    let spliturl = locurl.split("?")[1]; // this=true&that=good;
+    console.log(spliturl)
+    params = {};
+    spliturl = spliturl.split("&"); // ['this=true','that=good']
+    for (var i = 0; i < spliturl.length; i++) {
+
+        var split_cache = spliturl[i].split("="); // ['this','true'], ...
+        params[split_cache[0]] = split_cache[1]; // {this:true}, ...
+
+    }
+    console.log(params.id)
+    console.log(params.key)
+    apikey = params.key;
+    listid = params.id;
+    return params;
+}
+
+
+
+
 
 /* Mit Enter bestätigen */
 addEventListener("keydown", function (e) {
