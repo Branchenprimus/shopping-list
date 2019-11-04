@@ -60,7 +60,7 @@ a:focus {
 
 
 
-#sidebar .sidebar-header {
+#sidebar .sidebar-header, .nolistidnoapikey-sidebar-header {
     padding: 20px;
     background: #6d7fcc;
 }
@@ -209,6 +209,28 @@ ul.neue_liste_hinzufügen a {
     border: none;
 }
 
+/* ---------------------------------------------------
+    nolistidnoapikey
+----------------------------------------------------- */
+.nolistidnoapikey-sidebar-header{
+   text-align: center;
+   color: white;
+   box-shadow: 0 -8px 20px 2px black;
+}
+.nolistidnoapikey_content{
+    margin-right: 275px;
+    margin-left: 275px;
+    margin-top: 60px;
+    color: #999;
+}
+#herokuapplink{
+    text-decoration: underline;
+    color: grey;
+}
+
+#weiter{
+    float: right;
+}
 /* ---------------------------------------------------
     Scrollbar
 ----------------------------------------------------- */

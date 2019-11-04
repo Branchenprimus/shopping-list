@@ -1,14 +1,45 @@
 var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
-var listid = "" //5d931300ac8b120017a74aa6
-var apikey = ""; //35fb74ae2734069fc8f7bc15d729c250
+var listid = undefined //5d931300ac8b120017a74aa6
+var apikey = undefined; //35fb74ae2734069fc8f7bc15d729c250
 var copyText = "";
-var locurl = window.location.href;
+const locurl = window.location.href;
 
 
 splitCurrentURL();
 GetListHeader();
 GetItems();
-GetAllListsOfUser();
+
+
+
+$(document).ready(function () {
+    if (apikey === undefined) {
+        if (listid === undefined) {
+            $('.listcontent').hide()
+            $('.nolistidnoapikey').show()
+        }
+    } else {
+        $('.listcontent').show()
+        $('.nolistidnoapikey').hide()
+    }
+});
+
+
+
+function nolistidnoapikey_btn() {
+    if (document.getElementById("nolistidnoapikey_apikey_input").value == "" && document.getElementById("nolistidnoapikey_listid_input").value == "") {
+        alert("Bitte Api-Key oder ListID eingeben")
+    } else {
+        if (document.getElementById("nolistidnoapikey_listid_input").value !== "") {
+            listid = document.getElementById("nolistidnoapikey_listid_input").value
+        }
+        if (document.getElementById("nolistidnoapikey_apikey_input").value !== "") {
+            apikey = document.getElementById("nolistidnoapikey_apikey_input").value
+        }
+        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+    }
+
+}
+
 
 
 
@@ -35,7 +66,8 @@ function neue_liste_hinzufügen() {
         document.getElementById("listemitIDhinzufügen").placeholder = "Bitte ListenID eingeben";
     } else {
         listid = document.getElementById("listemitIDhinzufügen").value;
-        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+        let hilfsvar = locurl.split("?")[0];
+        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listid);
     }
     splitCurrentURL();
 }
@@ -49,7 +81,8 @@ function changeapikey() {
         document.getElementById("neuer_api_key_input").placeholder = "Bitte API-Key eingeben";
     } else {
         apikey = document.getElementById("neuer_api_key_input").value;
-        window.document.location.replace(locurl + "key=" + apikey + "&id=" + listid);
+        let hilfsvar = locurl.split("?")[0];
+        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listid);
         document.getElementById("alter_api_key_input").placeholder = apikey;
     }
     splitCurrentURL();
@@ -57,7 +90,6 @@ function changeapikey() {
 
 function splitCurrentURL() {
     let spliturl = locurl.split("?")[1]; // this=true&that=good;
-    console.log(spliturl)
     params = {};
     spliturl = spliturl.split("&"); // ['this=true','that=good']
     for (var i = 0; i < spliturl.length; i++) {
@@ -105,19 +137,32 @@ function GetListHeader() {
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
-            var listHeader = JSON.parse(this.responseText)
+            var listHeader = JSON.parse(this.responseText);
             var listOfLists = ""
+            console.log(listHeader)
+
             for (i = 0; i < Object.keys(listHeader).length; i++) {
-                listOfLists += ' <li> '
-                document.getElementById("listname").innerHTML = listHeader.name
+                listidChanger = listHeader[i]._id
+                listOfLists += '<li onclick="changeURLID(listidChanger)"><a href="#">' + listHeader[i].name + ' <span class="badge badge-primary badge-pill"><span id="quantity">' + listHeader[i].items.length +'</span></span> </a></li>'
+                document.getElementById('listOfLists').innerHTML = listOfLists;
             }
         }
+
     });
 
     xhr.open("GET", url);
+    xhr.setRequestHeader("Authorization", apikey)
     xhr.setRequestHeader("content-type", "application/json");
     xhr.send(data);
 
+}
+
+/* ---------------------------------------------------
+   Ändere die ID in der URL
+----------------------------------------------------- */
+
+function changeURLID(listidChanger){
+    listid = listidChanger
 }
 /* ---------------------------------------------------
     GET ITEM //Hole alle Items aus der aktuellen Liste

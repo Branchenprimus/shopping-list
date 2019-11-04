@@ -38,25 +38,55 @@
 </head>
 
 <body>
-
-
-    <div class="listcontent">
+    <div class="nolistidnoapikey">
+        <div class="nolistidnoapikey-sidebar-header">
+            <h3>Shopping-List</h3>
+        </div>
+        <div class="nolistidnoapikey_content">
+            <p>Du hast noch keine Liste Hinzugefügt</p>
+            <label for="recipient-name" class="col-form-label">Füge eine exestierende Liste mit der ListenID
+                hinzu:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID">
+                <button class="input-group-addon btn btn-outline-secondary" title="Copy ListID" onclick="XXXX">
+                    <i class="far fa-1.5x fa-copy"></i></button>
+            </div>
+            <label for="message-text" class="col-form-label">Oder füge alle deine Listen mit deinem API-Key
+                hinzu:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="nolistidnoapikey_apikey_input" placeholder="API-Key">
+                <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
+                    <i class="far fa-1.5x fa-copy" onclick="XX"></i></button>
+            </div>
+            <p>Du hast noch keine Listen, oder API-Key? <br>
+                Melde dich <span id="herokuapplink"><a target="_blank"
+                        href="https://shopping-lists-api.herokuapp.com/register">hier</a></span> an und komme dann
+                wieder hierhin
+                zurück.</p>
+            <button type="button" class="btn btn-outline-secondary" id="weiter" onclick="nolistidnoapikey_btn()">Weiter</button>
+        </div>
+    </div>
+    <div class="listcontent" id="tets">
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3>Shopping-List</h3>
             </div>
-            <ul class="list-unstyled listen">
-                <p>Meine Listen:</p>
-                <li>
-                    <a href="#"><span id="listname"></span> <span class="badge badge-primary badge-pill"><span
-                                id="quantity"></span></span> </a>
-                </li>
-
-                <!-- <li>
-                    <a href="#">Schuhe <span class="badge badge-primary badge-pill">17</span></a>
+            <!-- <li>
+                <a href="#"><span id="listname"></span> <span class="badge badge-primary badge-pill"><span
+                    id="quantity"></span></span> </a>
                 </li> -->
-            </ul>
+                
+                <ul class="list-unstyled listen"><p>Meine Listen:</p><span id="listOfLists"></span></ul>
+<!-- 
+            <ul class="list-unstyled listen">
+                
+                <span id="ListOfLists"></span>
+
+                 <li>
+                    <a href="#">Schuhe <span class="badge badge-primary badge-pill">20</span></a>
+                </li>
+            </ul> -->
             <ul class="list-unstyled neue_liste_hinzufügen">
 
                 <li>
@@ -92,7 +122,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" onclick="neue_liste_hinzufügen()">Hinzufügen</button>
+                        <button type="button" class="btn btn-outline-secondary"
+                            onclick="neue_liste_hinzufügen()">Hinzufügen</button>
                     </div>
                 </div>
             </div>
