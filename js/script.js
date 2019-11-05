@@ -9,7 +9,6 @@ GetListHeader();
 GetItems();
 
 
-
 $(document).ready(function () {
     if (apikey === undefined) {
         if (listid === undefined) {
@@ -24,7 +23,7 @@ $(document).ready(function () {
 
 
 function copyfromkebord(elem) {
-   
+
     navigator.clipboard.readText()
         .then(koptext => {
             console.log('Kopierter text: ', koptext);
@@ -33,11 +32,11 @@ function copyfromkebord(elem) {
                 document.getElementById("nolistidnoapikey_listid_input").value = text;
             } else {
                 console.log(elem.id)
-                if (elem.id == "nolistidnoapikey_apikey_input_btn"){
+                if (elem.id == "nolistidnoapikey_apikey_input_btn") {
                     console.log("penis2")
                     document.getElementById("nolistidnoapikey_apikey_input").value = text;
                 }
-        }
+            }
         })
         .catch(err => {
             alert("Der Inhalt der Zwischenablage konnte nicht gelesen werden", err)
@@ -124,12 +123,32 @@ function splitCurrentURL() {
     return params;
 }
 
+/*-----------------------------
+     Neue Liste erstellen
+------------------------------*/
 
+function POSTList() {
+
+    var data = JSON.stringify({
+        "name": document.getElementById("listehinzufügen").value
+    });
+
+
+    textarea.value = '';
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url);
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.setRequestHeader("Authorization", apikey)
+
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Posten"
+    xhr.send(data);
+}
 /*-----------------------------
      API Requests
 ------------------------------*/
 
-function POST() {
+function POSTItem() {
     var data = JSON.stringify({
         "name": document.getElementById("textarea").value
     });
@@ -161,7 +180,7 @@ function GetListHeader() {
             console.log(listHeader)
 
             for (i = 0; i < Object.keys(listHeader).length; i++) {
-                listOfLists += '<li id="'+ listHeader[i]._id +'" onclick="changeURLID(this.id)"><a href="#">' + listHeader[i].name + ' <span class="badge badge-primary badge-pill"><span id="quantity">' + listHeader[i].items.length + '</span></span> </a></li>'
+                listOfLists += '<li class="ListofLists_class"><span class="ListeLöschen"><button class="btn btn-outline-secondary" id="' + listHeader[i]._id + '" onclick="deleteList(this.id)"><i class="fas fa-minus"></i></button></span><span id="' + listHeader[i]._id + '" onclick="changeURLID(this.id)"><a>' + listHeader[i].name + ' <span class="badge badge-primary badge-pill" id="quantity">' + listHeader[i].items.length + '</span></span></a></li>'
                 document.getElementById('listOfLists').innerHTML = listOfLists;
             }
         }
@@ -182,7 +201,7 @@ function GetListHeader() {
 function changeURLID(listidChanger) {
     console.log("listidChanger")
     let hilfsvar = locurl.split("?")[0];
-        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listidChanger);
+    window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listidChanger);
 
 }
 /* ---------------------------------------------------
@@ -218,19 +237,34 @@ function GetItems() {
     xhr.send(data);
 }
 
+/* ---------------------------------------------------
+    DELETE LIST
+----------------------------------------------------- */
 
+function deleteList(deleteListId) {
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("DELETE", url + deleteListId);
+    xhr.setRequestHeader("Authorization", apikey)
+    refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Löschen"
+    xhr.send(null);
+}
 
 /* ---------------------------------------------------
-    DELETE ITEM
+DELETE ITEM
 ----------------------------------------------------- */
 
 function deleteItem(clicked_id) {
-
+    
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", url + listid + "/items/" + clicked_id);
     refreshPage(xhr) //Aktualisierung der Liste durch Aufruf der GetItems-Funktion nach "Löschen"
     xhr.send(null);
 }
+
+/* ---------------------------------------------------
+    Druck
+----------------------------------------------------- */
 function drucken() {
     window.print();
 }
@@ -296,6 +330,7 @@ function refreshPage(xhrÜbergeben) {
         if (xhrÜbergeben.readyState === xhrÜbergeben.DONE) {
             if (xhrÜbergeben.status === 200) {
                 GetItems(); //Funktionsaufruf für die Itemliste
+                GetListHeader(); //Hier werden die Listen geladen
             }
         }
     };
@@ -437,5 +472,6 @@ function readOutLoud(error) {
 ------------------------------*/
 
 function share() {
-    qrcode_img.src = "http://api.qrserver.com/v1/create-qr-code/?data="+ encodeURIComponent(locurl) +"&amp;size=100x100"; 
+    console.log(encodeURIComponent(locurl))
+    qrcode_img.src = "http://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(locurl) + "&amp;size=100x100";
 }

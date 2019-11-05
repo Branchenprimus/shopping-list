@@ -18,7 +18,7 @@
     <!-- jQuery CDN - Slim version (=ohne AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Eigener JS-->
     <script src="../js/script.js"></script>
@@ -28,11 +28,11 @@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-    </script>
+        </script>
 
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
@@ -47,7 +47,7 @@
             <label for="recipient-name" class="col-form-label">Füge eine exestierende Liste mit der ListenID
                 hinzu:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID" >
+                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID">
                 <button class="input-group-addon btn btn-outline-secondary" title="Paste ListID"
                     id="nolistidnoapikey_listid_input_btn" onclick="copyfromkebord(this)">
                     <i class="far fa-1.5x fa-copy"></i></button>
@@ -75,21 +75,12 @@
             <div class="sidebar-header">
                 <h3>Shopping-List</h3>
             </div>
-            <!-- <li>
-                <a href="#"><span id="listname"></span> <span class="badge badge-primary badge-pill"><span
-                    id="quantity"></span></span> </a>
-                </li> -->
-                
-                <ul class="list-unstyled listen"><p>Meine Listen:</p><span id="listOfLists"></span></ul>
-<!-- 
-            <ul class="list-unstyled listen">
-                
-                <span id="ListOfLists"></span>
 
-                 <li>
-                    <a href="#">Schuhe <span class="badge badge-primary badge-pill">20</span></a>
-                </li>
-            </ul> -->
+            <ul class="list-unstyled listen">
+                <p>Meine Listen:</p><span id="listOfLists"></span>
+            </ul>
+
+
             <ul class="list-unstyled neue_liste_hinzufügen">
 
                 <li>
@@ -111,7 +102,7 @@
                 <!-- Modal Inhalt-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="neue_liste_hinzufügen_modal">Neue Liste mit ID hinzufügen</h5>
+                        <h5 class="modal-title" id="neue_liste_hinzufügen_modal">Neue Liste hinzufügen</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -119,14 +110,13 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="listen_id" class="col-form-label">Listen ID:</label>
-                                <input type="text" class="form-control" id="listemitIDhinzufügen" placeholder="">
+                                <label for="listen_id" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="listehinzufügen" placeholder="">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary"
-                            onclick="neue_liste_hinzufügen()">Hinzufügen</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="POSTList()">Hinzufügen</button>
                     </div>
                 </div>
             </div>
@@ -172,23 +162,23 @@
         <!-- Modal -->
         <div class="modal" tabindex="-1" role="dialog" id="qrcodemodal">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Liste Teilen</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Liste Teilen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="qrcodemodal-body">
+                        <img id="qrcode_img" src="" alt="QRcode konnte nicht generiert werden">
+                        <p>Scanne den QR-Code oder teile den Link mit deinen Freunden.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Schließen</button>
+                    </div>
                 </div>
-                <div class="qrcodemodal-body">
-                  <img id="qrcode_img" src="" alt="QRcode konnte nicht generiert werden">
-                  <p>Scanne den QR-Code oder teile den Link mit deinen Freunden.</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Schließen</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         <!-- Content  -->
         <div id="content">
             <!--Navbar Header-->
@@ -200,9 +190,9 @@
                     <div class="input-group-prepend">
                         <span>
                             <button class="btn btn-outline-secondary" id="item_hinzufügen_plus_btn" type="button"
-                                onclick="POST()"><i class="fas fa-plus-circle"></i></button>
+                                onclick="POSTItem()"><i class="fas fa-plus-circle"></i></button>
                             <button class="btn btn-outline-secondary" id="item_hinzufügen_btn" type="button"
-                                onclick="POST()">Hinzufügen</button>
+                                onclick="POSTItem()">Hinzufügen</button>
                         </span>
                     </div>
 
@@ -233,7 +223,8 @@
                     <button class="btn btn-outline-secondary" id="behindert" onclick="bistdubehindert()">
                         <i class="fas fa-wheelchair"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-secondary" data-target="#qrcodemodal" data-toggle="modal" id="share" onclick="share()">
+                    <button type="button" class="btn btn-outline-secondary" data-target="#qrcodemodal"
+                        data-toggle="modal" id="share" onclick="share()">
                         <i class="fas fa-share-alt"></i>
                     </button>
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn"

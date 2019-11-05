@@ -144,6 +144,16 @@ background-color: rgba(119, 136, 153, 7%);
 .list-group-item:hover .btn_items {
     display: inline;
 }
+.ListeLöschen{
+    display: none;
+} 
+
+.ListofLists_class:hover .ListeLöschen{
+    display: inline;
+    float: right;
+    margin-top: 4px; 
+    margin-right: 5px;
+} 
 
 #content {
     width: 100%;
