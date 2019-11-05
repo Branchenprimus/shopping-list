@@ -142,8 +142,7 @@ function GetListHeader() {
             console.log(listHeader)
 
             for (i = 0; i < Object.keys(listHeader).length; i++) {
-                listidChanger = listHeader[i]._id
-                listOfLists += '<li onclick="changeURLID(listidChanger)"><a href="#">' + listHeader[i].name + ' <span class="badge badge-primary badge-pill"><span id="quantity">' + listHeader[i].items.length +'</span></span> </a></li>'
+                listOfLists += '<li id="'+ listHeader[i]._id +'" onclick="changeURLID(this.id)"><a href="#">' + listHeader[i].name + ' <span class="badge badge-primary badge-pill"><span id="quantity">' + listHeader[i].items.length + '</span></span> </a></li>'
                 document.getElementById('listOfLists').innerHTML = listOfLists;
             }
         }
@@ -161,8 +160,11 @@ function GetListHeader() {
    Ändere die ID in der URL
 ----------------------------------------------------- */
 
-function changeURLID(listidChanger){
-    listid = listidChanger
+function changeURLID(listidChanger) {
+    console.log("listidChanger")
+    let hilfsvar = locurl.split("?")[0];
+        window.document.location.replace(hilfsvar + "?" + "key=" + apikey + "&id=" + listidChanger);
+
 }
 /* ---------------------------------------------------
     GET ITEM //Hole alle Items aus der aktuellen Liste
