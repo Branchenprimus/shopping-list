@@ -173,6 +173,15 @@ background-color: rgba(119, 136, 153, 7%);
     border-top-left-radius: 0 !important
 }
 
+
+.qrcodemodal-body{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 50%;
+}
+
 /* Print */
 #print_btn_div {
     bottom: 0;
@@ -240,9 +249,9 @@ background-color: rgba(119, 136, 153, 7%);
 }
 
 .nolistidnoapikey_content {
-    margin-right: 275px;
-    margin-left: 275px;
-    margin-top: 60px;
+    padding-right: 20%;
+    padding-left: 20%;
+    padding-top: 2%;
     color: #999;
 }
 
@@ -341,7 +350,7 @@ background-color: rgba(119, 136, 153, 7%);
     #list_items_bought_true{
         text-decoration: none;
     }
-    
+
     .listitems:before {
         content: "Freitag Abend:";
         font-weight: bold;

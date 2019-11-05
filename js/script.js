@@ -47,7 +47,7 @@ function copyfromkebord(elem) {
 
 function nolistidnoapikey_btn() {
     if (document.getElementById("nolistidnoapikey_apikey_input").value == "" && document.getElementById("nolistidnoapikey_listid_input").value == "") {
-        alert("Bitte Api-Key oder ListID eingeben")
+        alert("Bitte API-Key oder ListID eingeben")
     } else {
         if (document.getElementById("nolistidnoapikey_listid_input").value !== "") {
             listid = document.getElementById("nolistidnoapikey_listid_input").value
@@ -434,11 +434,7 @@ function readOutLoud(error) {
 /*-----------------------------
      ShareAPI
 ------------------------------*/
-//Funktioniert nur über Htpps
-function shareapi() {
-    navigator.share({
-        title: document.title,
-        text: 'Hier eine Liste für dich!',
-        url: 'url + listid',
-    })
+
+function share() {
+    qrcode_img.src = "http://api.qrserver.com/v1/create-qr-code/?data="+ encodeURIComponent(locurl) +"&amp;size=100x100"; 
 }

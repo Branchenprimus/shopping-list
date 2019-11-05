@@ -47,7 +47,7 @@
             <label for="recipient-name" class="col-form-label">Füge eine exestierende Liste mit der ListenID
                 hinzu:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID">
+                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID" >
                 <button class="input-group-addon btn btn-outline-secondary" title="Paste ListID"
                     id="nolistidnoapikey_listid_input_btn" onclick="copyfromkebord(this)">
                     <i class="far fa-1.5x fa-copy"></i></button>
@@ -164,6 +164,27 @@
                 </div>
             </div>
         </div>
+        <!--Bootstraps Modal Share-->
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="qrcodemodal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Liste Teilen</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="qrcodemodal-body">
+                  <img id="qrcode_img" src="" alt="QRcode konnte nicht generiert werden">
+                  <p>Scanne den QR-Code oder teile den Link mit deinen Freunden.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <!-- Content  -->
         <div id="content">
             <!--Navbar Header-->
@@ -208,7 +229,7 @@
                     <button class="btn btn-outline-secondary" id="behindert" onclick="bistdubehindert()">
                         <i class="fas fa-wheelchair"></i>
                     </button>
-                    <button class="btn btn-outline-secondary" id="share" onclick="shareapi()">
+                    <button type="button" class="btn btn-outline-secondary" data-target="#qrcodemodal" data-toggle="modal" id="share" onclick="share()">
                         <i class="fas fa-share-alt"></i>
                     </button>
                     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn"
