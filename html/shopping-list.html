@@ -18,7 +18,7 @@
     <!-- jQuery CDN - Slim version (=ohne AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Eigener JS-->
     <script src="../js/script.js"></script>
@@ -28,11 +28,11 @@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-        </script>
+    </script>
 
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
@@ -47,23 +47,26 @@
             <label for="recipient-name" class="col-form-label">Füge eine exestierende Liste mit der ListenID
                 hinzu:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID">
-                <button class="input-group-addon btn btn-outline-secondary" title="Copy ListID" onclick="XXXX">
+                <input type="text" class="form-control" id="nolistidnoapikey_listid_input" placeholder="ListID" >
+                <button class="input-group-addon btn btn-outline-secondary" title="Paste ListID"
+                    id="nolistidnoapikey_listid_input_btn" onclick="copyfromkebord(this)">
                     <i class="far fa-1.5x fa-copy"></i></button>
             </div>
             <label for="message-text" class="col-form-label">Oder füge alle deine Listen mit deinem API-Key
                 hinzu:</label>
             <div class="input-group">
                 <input type="text" class="form-control" id="nolistidnoapikey_apikey_input" placeholder="API-Key">
-                <button class="input-group-addon btn btn-outline-secondary" title="Copy API-Key">
-                    <i class="far fa-1.5x fa-copy" onclick="XX"></i></button>
+                <button class="input-group-addon btn btn-outline-secondary" title="Paste API-Key"
+                    id="nolistidnoapikey_apikey_input_btn">
+                    <i class="far fa-1.5x fa-copy" onclick="copyfromkebord(this)"></i></button>
             </div>
             <p>Du hast noch keine Listen, oder API-Key? <br>
                 Melde dich <span id="herokuapplink"><a target="_blank"
                         href="https://shopping-lists-api.herokuapp.com/register">hier</a></span> an und komme dann
                 wieder hierhin
                 zurück.</p>
-            <button type="button" class="btn btn-outline-secondary" id="weiter" onclick="nolistidnoapikey_btn()">Weiter</button>
+            <button type="button" class="btn btn-outline-secondary" id="weiter"
+                onclick="nolistidnoapikey_btn()">Weiter</button>
         </div>
     </div>
     <div class="listcontent" id="tets">
@@ -100,7 +103,7 @@
         </nav>
         <!--Bootstraps Modal neue Liste Hinzufügen-->
         <!-- Modal -->
-        
+
         <div class="modal fade" id="neue_liste_hinzufügen_modal" tabindex="-1" role="dialog"
             aria-labelledby="neue_liste_hinzufügen_modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -165,6 +168,27 @@
                 </div>
             </div>
         </div>
+        <!--Bootstraps Modal Share-->
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="qrcodemodal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Liste Teilen</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="qrcodemodal-body">
+                  <img id="qrcode_img" src="" alt="QRcode konnte nicht generiert werden">
+                  <p>Scanne den QR-Code oder teile den Link mit deinen Freunden.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <!-- Content  -->
         <div id="content">
             <!--Navbar Header-->
@@ -194,25 +218,28 @@
             <!--#######################################
                 #              Listitems                  #
                 ########################################-->
-                <h2>Zu erledigen:</h2>
-            <ul class="list-group " id="list_items_bought_false"><span id="itemsUnbought"></ul>
-            <div class="line"></div>
-            <h2>Erledigt:</h2>
-            <ul class="list-group" id="list_items_bought_true"><span id="itemsBought"></ul>
-            <!--Print-->
-            <div class="line" id="print_btn_div">
-                <button class="btn btn-outline-secondary" id="print_btn" onclick="drucken()">
-                    <i class="fas fa-print"></i>
-                </button>
-                <button class="btn btn-outline-secondary" id="behindert" onclick="bistdubehindert()">
-                    <i class="fas fa-wheelchair"></i>
-                </button>
-                <button class="btn btn-outline-secondary" id="share" onclick="shareapi()">
-                    <i class="fas fa-share-alt"></i>
-                </button>
-                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn"
-                    onclick="showoldapikey()" data-target="#change_apikey_modal"><i
-                        class="fas fa-user-cog"></i></button>
+
+            <div class="listitems">
+                <h2 id="zuerledigen">Zu erledigen:</h2>
+                <ul class="list-group disabled " id="list_items_bought_false"><span id="itemsUnbought"></ul>
+                <div class="line"></div>
+                <h2 id="erledigt">Erledigt:</h2>
+                <ul class="list-group" id="list_items_bought_true"><span id="itemsBought"></ul>
+                <!--Print-->
+                <div class="line" id="print_btn_div">
+                    <button class="btn btn-outline-secondary" id="print_btn" onclick="drucken()">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" id="behindert" onclick="bistdubehindert()">
+                        <i class="fas fa-wheelchair"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-target="#qrcodemodal" data-toggle="modal" id="share" onclick="share()">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="change_apikey_btn"
+                        onclick="showoldapikey()" data-target="#change_apikey_modal"><i
+                            class="fas fa-user-cog"></i></button>
+                </div>
             </div>
 
         </div>

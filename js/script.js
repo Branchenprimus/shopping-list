@@ -2,8 +2,7 @@ var url = "https://shopping-lists-api.herokuapp.com/api/v1/lists/"
 var listid = undefined //5d931300ac8b120017a74aa6
 var apikey = undefined; //35fb74ae2734069fc8f7bc15d729c250
 var copyText = "";
-const locurl = window.location.href;
-
+const locurl = window.location.href + "?";
 
 splitCurrentURL();
 GetListHeader();
@@ -24,10 +23,30 @@ $(document).ready(function () {
 });
 
 
+function copyfromkebord(elem) {
+   
+    navigator.clipboard.readText()
+        .then(koptext => {
+            console.log('Kopierter text: ', koptext);
+            var text = koptext;
+            if (elem.id == "nolistidnoapikey_listid_input_btn") {
+                document.getElementById("nolistidnoapikey_listid_input").value = text;
+            } else {
+                console.log(elem.id)
+                if (elem.id == "nolistidnoapikey_apikey_input_btn"){
+                    console.log("penis2")
+                    document.getElementById("nolistidnoapikey_apikey_input").value = text;
+                }
+        }
+        })
+        .catch(err => {
+            alert("Der Inhalt der Zwischenablage konnte nicht gelesen werden", err)
+        });
+}
 
 function nolistidnoapikey_btn() {
     if (document.getElementById("nolistidnoapikey_apikey_input").value == "" && document.getElementById("nolistidnoapikey_listid_input").value == "") {
-        alert("Bitte Api-Key oder ListID eingeben")
+        alert("Bitte API-Key oder ListID eingeben")
     } else {
         if (document.getElementById("nolistidnoapikey_listid_input").value !== "") {
             listid = document.getElementById("nolistidnoapikey_listid_input").value
@@ -180,11 +199,11 @@ function GetItems() {
             listBought = ""         //Liste für Items mit dem Status "bought = true"
             for (i = 0; i < Object.keys(einkaufsliste.items).length; i++) {
                 if (einkaufsliste.items[i].bought === false) {
-                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update1(this.id)"> <i class="fas fa-shopping-basket"></i></button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i></button> </span></span> </li>';
+                    listUnbought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span class="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update1(this.id)"> <i class="fas fa-shopping-basket"></i></button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i></button> </span></span> </li>';
                     // document.getElementsByTagName("button").id = "newid";
                 }
                 else {
-                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span id="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
+                    listBought += ' <li class="list-group-item">' + einkaufsliste.items[i].name + '<span class="btn_items"> <span id="items_bought"> <button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="update2(this.id)"> <i class="fas fa-arrow-up"></i> </button> </span> <span id="items_delite"><button class="btn btn-outline-secondary" id="' + einkaufsliste.items[i]._id + '"onclick="deleteItem(this.id)"> <i class="fas fa-trash-alt"></i> </button> </span></span> </li>';
 
                 }
 
@@ -416,11 +435,7 @@ function readOutLoud(error) {
 /*-----------------------------
      ShareAPI
 ------------------------------*/
-//Funktioniert nur über Htpps
-function shareapi() {
-    navigator.share({
-        title: document.title,
-        text: 'Hier eine Liste für dich!',
-        url: 'url + listid',
-    })
+
+function share() {
+    qrcode_img.src = "http://api.qrserver.com/v1/create-qr-code/?data="+ encodeURIComponent(locurl) +"&amp;size=100x100"; 
 }

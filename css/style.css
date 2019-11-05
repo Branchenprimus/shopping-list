@@ -60,7 +60,8 @@ a:focus {
 
 
 
-#sidebar .sidebar-header, .nolistidnoapikey-sidebar-header {
+#sidebar .sidebar-header,
+.nolistidnoapikey-sidebar-header {
     padding: 20px;
     background: #6d7fcc;
 }
@@ -128,11 +129,22 @@ ul.neue_liste_hinzufügen a {
 ----------------------------------------------------- */
 .list-group-item {
     padding: 14px 15px !important;
+} 
+
+.btn_items {
+    display: none;
+    float: right;
+    margin-top: -7px;
 }
 
 .list-group-item:hover{
-    background-color: rgba(119, 136, 153, 7%)
+background-color: rgba(119, 136, 153, 7%);
 }
+
+.list-group-item:hover .btn_items {
+    display: inline;
+}
+
 #content {
     width: 100%;
     padding: 20px;
@@ -141,31 +153,42 @@ ul.neue_liste_hinzufügen a {
 
 }
 
-#btn_items {
-    float: right;
-    margin-top: -7px;
+#list_items_bought_true{
+    text-decoration: line-through;
 }
+
 
 #btn_delite {
     margin-left: 4px;
 
 }
-#item_hinzufügen_plus_btn{
+
+#item_hinzufügen_plus_btn {
     display: none;
 }
 
 /*Modals*/
-.input-group-addon{
+.input-group-addon {
     border-bottom-left-radius: 0 !important;
     border-top-left-radius: 0 !important
 }
 
+
+.qrcodemodal-body{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 50%;
+}
+
 /* Print */
-#print_btn_div{
+#print_btn_div {
     bottom: 0;
     right: 0;
     position: relative;
-}    
+}
+
 #change_apikey_btn,
 #share,
 #print_btn,
@@ -193,7 +216,7 @@ ul.neue_liste_hinzufügen a {
     margin-right: 5px;
     display: inline-block;
     width: 53px;
-    
+
 }
 
 .navbar {
@@ -209,28 +232,38 @@ ul.neue_liste_hinzufügen a {
     border: none;
 }
 
+
+#erledigt,
+#zuerledigen {
+    font-size: 30px;
+    color: rgb(85, 83, 83);
+}
+
 /* ---------------------------------------------------
     nolistidnoapikey
 ----------------------------------------------------- */
-.nolistidnoapikey-sidebar-header{
-   text-align: center;
-   color: white;
-   box-shadow: 0 -8px 20px 2px black;
+.nolistidnoapikey-sidebar-header {
+    text-align: center;
+    color: white;
+    box-shadow: 0 -8px 20px 2px black;
 }
-.nolistidnoapikey_content{
-    margin-right: 275px;
-    margin-left: 275px;
-    margin-top: 60px;
+
+.nolistidnoapikey_content {
+    padding-right: 20%;
+    padding-left: 20%;
+    padding-top: 2%;
     color: #999;
 }
-#herokuapplink{
+
+#herokuapplink {
     text-decoration: underline;
     color: grey;
 }
 
-#weiter{
+#weiter {
     float: right;
 }
+
 /* ---------------------------------------------------
     Scrollbar
 ----------------------------------------------------- */
@@ -238,12 +271,15 @@ ul.neue_liste_hinzufügen a {
 ::-webkit-scrollbar {
     width: 10px;
 }
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #989ca1; 
+    background: #989ca1;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #6c757d;
 }
@@ -305,8 +341,18 @@ ul.neue_liste_hinzufügen a {
         font-size: 16px;
     }
 
-    #list_items_bought_false:before {
-        content: "Freitag Abend";
+    #erledigt,
+    #zuerledigen {
+        font-size: 20px;
+        color: rgb(85, 83, 83);
+    }
+
+    #list_items_bought_true{
+        text-decoration: none;
+    }
+
+    .listitems:before {
+        content: "Freitag Abend:";
         font-weight: bold;
         font-size: 1.75rem;
         font-family: 'Poppins', sans-serif;
@@ -330,4 +376,3 @@ ul.neue_liste_hinzufügen a {
 
 
 }
-
